@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+<head>
+  <meta charset="UTF-8">
+
+  <title>inscription</title>
+
+    <link rel="stylesheet" href="/assets/css2/linearicons.css">
+    <link rel="stylesheet" href="/assets/css2/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/css2/jquery.DonutWidget.min.css">
+    <link rel="stylesheet" href="/assets/css2/bootstrap.css">
+    <link rel="stylesheet" href="/assets/css2/owl.carousel.css">
+    <link type="text/css" rel="stylesheet" href="/assets/css2/main.css">
+
+    <script data-require="angular.js@1.4.x" src="https://code.angularjs.org/1.4.12/angular.js" data-semver="1.4.9"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  </head>
+  <body>
+
+    <div class="limiter">
+      <div  class="container-login100">
+        <div [ngClass]="{'classB' : color}" class="wrap-login100">
+
+          <form [formGroup]="form" (ngSubmit)="submitinscription()" novalidate>
+
+            <span class="acceuil">
+              Ajouter un utilisateurs
+            </span>
+
+
+            <div class="row justify-content-center">
+
+              <mat-form-field  appearance="fill">
+                <mat-label>Entrez son nom</mat-label>
+                <input [readonly]="block" matInput placeholder="Ouedraogo" formControlName="nom" [ngClass]="{ 'is-invalid': submitted && form.controls['nom'].errors }" [ngClass]="{ 'is-valid': submitted && form.controls['nom'].valid}" required>
+              </mat-form-field>
+              <span class="text-danger"*ngIf="(FormControl['nom'].touched || submitted) && FormControl['nom'].errors?.['required']">
+                  entrez un nom valide
+              </span>
+
+              <mat-form-field appearance="fill">
+                <mat-label>Entrez son prénom</mat-label>
+                <input [readonly]="block" matInput placeholder="Tasséré" formControlName="prenom" [ngClass]="{ 'is-invalid': submitted && form.controls['prenom'].errors }" [ngClass]="{ 'is-valid': submitted && form.controls['prenom'].valid}" required>
+              </mat-form-field>
+              <span class="text-danger"*ngIf="(FormControl['prenom'].touched || submitted) && FormControl['prenom'].errors?.['required']">
+                  entrez un prénom valide
+              </span>
+
+              <mat-form-field appearance="fill">
+                <mat-label>Entrez son email</mat-label>
+                <input [readonly]="block" matInput placeholder="Ouedraogo" formControlName="email" [ngClass]="{ 'is-invalid': submitted && form.controls['email'].errors }" [ngClass]="{ 'is-valid': submitted && form.controls['email'].valid}" required>
+              </mat-form-field>
+              <span class="text-danger"*ngIf="(FormControl['email'].touched || submitted) && FormControl['email'].errors?.['required']">
+                  entrez un email valide
+              </span>
+
+              <mat-form-field appearance="fill">
+                <mat-label>Entrez son contact</mat-label>
+                <input [readonly]="block" matInput placeholder="Ouedraogo" formControlName="numero" [ngClass]="{ 'is-invalid': submitted && form.controls['numero'].errors }" [ngClass]="{ 'is-valid': submitted && form.controls['numero'].valid}" required>
+              </mat-form-field>
+              <span class="text-danger"*ngIf="(FormControl['numero'].touched || submitted) && FormControl['numero'].errors?.['required']">
+                  entrez un numero valide
+              </span>
+
+              <mat-form-field appearance="fill">
+
+                <mat-label>
+                  Choisissez le poste
+                </mat-label>
+  
+                <mat-select formControlName="role_id">
+                  <mat-option *ngFor="let roles of role" [value]="roles.id">
+                    {{roles.libellerole}}
+                  </mat-option>
+                </mat-select>
+                
+              </mat-form-field>
+
+              <div class="container-login100-form-btn">
+                <button [disabled]="form.invalid" type="submit" class="login100-form-btn">
+                  Ajouter
+                </button>
+              </div>
+            </div>
+
+            <br>
+
+            <div class="text-center p-t-12">
+
+              <a routerLink="/" class="txt2" href="#">
+                Acceuil
+                <i class="fa fa-home m-l-5" aria-hidden="true"></i>
+              </a>
+
+            </div>
+            
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

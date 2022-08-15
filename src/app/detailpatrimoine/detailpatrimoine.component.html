@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+<head>
+  <meta charset="UTF-8">
+
+  <title>Patrimoine</title>
+
+    <link rel="stylesheet" href="/assets/css2/linearicons.css">
+    <link rel="stylesheet" href="/assets/css2/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/css2/jquery.DonutWidget.min.css">
+    <link rel="stylesheet" href="/assets/css2/bootstrap.css">
+    <link rel="stylesheet" href="/assets/css2/owl.carousel.css">
+    <link type="text/css" rel="stylesheet" href="/assets/css2/main.css">
+
+
+    <script data-require="angular.js@1.4.x" src="https://code.angularjs.org/1.4.12/angular.js" data-semver="1.4.9"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <header class="default-header">
+      <nav class="navbar navbar-expand-lg  navbar-light">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+              <span>Patrimoines</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-end align-items-center" id="navbarSupportedContent">
+              <ul class="navbar-nav">
+                <div *ngIf="!connected && !blocage">
+                  <li><a routerLink="/login" >Connectez vous!</a></li>
+                  <li><a routerLink="/inscription">S'inscrire!</a></li>
+                    </div>
+              <li  *ngIf="blocage"><a routerLink="/adminview" >ADMIN DASHBOARD</a></li>
+              <li><a *ngIf="blocage" href="#" (click)="deconnexionadmin()">Deconnexion</a></li>
+              <li><a href="/acceuil" >Acceuil</a></li>
+              <li  *ngIf="connected && !blocage"><a href="#" >Autour de moi</a></li>
+              <li  *ngIf="connected && !blocage"><a href="#">Carte des points à voir</a></li>
+              <li  *ngIf="connected && !blocage"><a href="#">Les communes</a></li>
+
+                <li *ngIf="connected && !blocage" class="dropdown">
+                  <a class="dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    Profil
+                  </a>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#" >Consulter votre profil</a>
+                    <a class="dropdown-item" href="#" (click)="deconnexion()">Deconnexion</a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+        </div>
+      </nav>
+    </header>
+
+    <section id="blog" class="blog">
+      <div class="container" data-aos="fade-up">
+
+        <strong><h1 style="text-align: center;">Details sur le patrimoine</h1></strong>
+
+        <div class="row">
+
+          <div class="col-lg-8 entries">
+
+            <article class="entry" *ngFor="let patrimoine of patrimoines">
+
+              <div class="entry-img">
+                <img [src]="imagepath + patrimoine.image" alt="" class="img-fluid">
+              </div>
+
+              <h2 class="entry-title">
+                <a href="blog-single.html">{{patrimoine.titre}} / {{patrimoine.pays}} / {{patrimoine.ville}}</a>
+              </h2>
+
+              <div class="entry-meta">
+                <ul>
+                  <li class="d-flex "><i class="icofont-user"></i> <a href="blog-single.html">Entreprise réalisatrice: {{patrimoine.entreprise}}</a></li><br>
+                  <li class="d-flex "><i class="icofont-user"></i><a href="blog-single.html">Chef d'équipe: {{patrimoine.chefEquipe}}</a></li><br>
+                  <li class="d-flex "><i class="icofont-wall-clock"></i><strong> <a href="blog-single.html">Date d'écheance: {{patrimoine.echeance}}</a></strong></li>
+                </ul>
+              </div>
+
+              <div class="entry-content">
+                <p>
+                  Description: {{patrimoine.description}}
+                </p>
+
+                <form *ngIf="!blocage" [formGroup]="form"(ngSubmit)="comment()" name="myform" novalidate>
+
+                <div style="display: inline;" *ngFor="let userdetailss of userdetails">
+
+                <mat-form-field>
+                <textarea matInput formControlName="comment" placeholder="Laissez un commentaire" name="" id="" cols="100" rows="5" [ngClass]="{ 'is-invalid': submitted && form.controls['comment'].errors }" [ngClass]="{ 'is-valid': submitted && form.controls['comment'].valid}" required></textarea>
+                </mat-form-field>
+
+                <input  style="visibility: hidden; width: 0; height: 0; margin-top: -70px;" [(ngModel)]="username" class="form-control" formControlName="userid" type="any" value="{{username}}">
+                <input  style="visibility: hidden; width: 0; height: 0;" [(ngModel)]="patrimoine.id" class="form-control" formControlName="patid" type="any" value="{{patrimoine.id}}">
+                <input   style="visibility: hidden; width: 0; height: 0;" [(ngModel)]="userdetailss.prenom" type="any" class="form-control" value="{{userdetailss.nom}} {{userdetailss.prenom}}" formControlName="username" >
+                <input    class="form-control" formControlName="parentid" type="any" value="null">
+                </div>
+
+                <div class="read-more" style="display: inline;">
+                  <button [ngClass]="{ 'disabled': form.controls['comment'].invalid}" type="submit" class="btn btn-primary">commenter</button>
+                </div>
+
+                </form>
+
+                <div *ngIf="!blocage" style="text-align: right;">
+                <button class="btn btn-success">
+                like
+                </button>
+                </div>
+
+                <div *ngIf="blocage && patrimoine.validation==0" style="text-align: right;">
+                  <button  (click)="validerpatrimoine()" class="btn btn-success">
+                   Valider
+                  </button>
+                  </div>
+
+                  <div *ngIf="blocage && patrimoine.validation==1" style="text-align: right;">
+                    <button (click)="retirerpatrimoine()" class="btn btn-danger">
+                     Retirer
+                    </button>
+                    </div>
+
+                <br *ngIf="!blocage"><br>
+
+  <div *ngIf="totalcomments>0">
+                 <h2>Quelques commentaires récents</h2>
+
+               <table class="table">
+                 <thead>
+                   <th scope="col">Utilisateur</th>
+                   <th scope="col">Commentaire</th>
+                   <th scope="col">Action</th>
+                 </thead>
+                 <tbody *ngFor="let comment of comments">
+
+                  <td>
+                    {{comment.username}}
+                   </td>
+
+                   <td>
+                    {{comment.comment}}
+                   </td>
+
+                   <td>
+                     <button class="btn btn-danger">Répondre</button>
+                   </td>
+
+                 </tbody>
+               </table>
+
+  </div>
+
+              </div>
+
+            </article>
+          </div>
+
+          <div class="col-lg-4">
+
+            <div class="sidebar">
+
+              <h3 class="sidebar-title">Localisation</h3>
+              <div class="sidebar-item search-form">
+
+                <div  *ngFor="let patrimoine of patrimoines">
+                  <agm-map [latitude]="latitude" [longitude]="longitude">
+                    <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+                  </agm-map>
+
+                  </div>
+
+              </div><!-- End sidebar search formn-->
+
+              <h3 class="sidebar-title">Autres détails</h3>
+              <div class="sidebar-item categories">
+                <ul>
+                  <li><a href="#">Commentaires <span>({{totalcomments}})</span></a></li>
+                  <li><a href="#">Like <span>(12)</span></a></li>
+                  <li><a href="#">Visites <span>(5)</span></a></li>
+                </ul>
+              </div><!-- End sidebar categories-->
+
+            </div><!-- End sidebar -->
+
+          </div><!-- End blog sidebar -->
+
+        </div>
+      </div>
+
+
+
+</section>
+
+</body>
+
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+<head>
+  <meta charset="UTF-8">
+
+  <title>Patrimoine</title>
+
+    <link rel="stylesheet" href="/assets/css2/linearicons.css">
+    <link rel="stylesheet" href="/assets/css2/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/css2/jquery.DonutWidget.min.css">
+    <link rel="stylesheet" href="/assets/css2/bootstrap.css">
+    <link rel="stylesheet" href="/assets/css2/owl.carousel.css">
+    <link type="text/css" rel="stylesheet" href="/assets/css2/main.css">
+
+
+    <script data-require="angular.js@1.4.x" src="https://code.angularjs.org/1.4.12/angular.js" data-semver="1.4.9"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <header class="default-header">
+      <nav class="navbar navbar-expand-lg  navbar-light">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+              <span>Patrimoines</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-end align-items-center" id="navbarSupportedContent">
+              <ul class="navbar-nav">
+
+                <li  *ngIf="connected"><a href="#" >Acceuil</a></li>
+								<li  *ngIf="connected"><a href="#" >Autour de moi</a></li>
+								<li  *ngIf="connected"><a href="#">Carte des points à voir</a></li>
+								<li  *ngIf="connected"><a href="#">Les communes</a></li>
+
+							    <li *ngIf="connected" class="dropdown">
+                  <a class="dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    Profil
+                  </a>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#" >Consulter votre profil</a>
+                    <a class="dropdown-item" href="#" (click)="deconnexion()">Deconnexion</a>
+                  </div>
+                </li>
+
+              </ul>
+            </div>
+        </div>
+      </nav>
+    </header>
+
+    <section class="h-100 gradient-custom-2">
+      <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col col-lg-9 col-xl-7">
+            <div class="card" *ngFor="let userdetailss of userdetails">
+              <div class="rounded-top text-white d-flex flex-row" style="background-color: rgb(27, 203, 235); height:200px;">
+                <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px;">
+                  <img src="assets/img2/image12.png"
+                    alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
+                    style="width: 150px; z-index: 1">
+                  <button type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark"
+                    style="z-index: 1;">
+                   Modifier profil
+                  </button>
+                </div>
+                <div class="ms-3" style="margin-top: 130px;">
+                  <strong><h5>{{userdetailss.nom}} {{userdetailss.prenom}}</h5></strong>
+                  <p>{{userdetailss.email}}</p>
+                </div>
+              </div>
+              <div class="p-4 text-black" style="background-color: #f8f9fa;">
+                <div class="d-flex justify-content-end text-center py-1">
+                  <div>
+                    <p class="mb-1 h5">{{patrimoinenumber}}</p>
+                    <p class="small text-muted mb-0">Patrimoines</p>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body p-4 text-black">
+                <div class="mb-5">
+                  <p class="lead fw-normal mb-1">A propos de vous</p>
+                  <div class="p-4" style="background-color: #f8f9fa;">
+                    <p class="font-italic mb-1">Profession: {{userdetailss.profession}}</p>
+                    <p class="font-italic mb-1">Numéro: +226 {{userdetailss.numero}}</p>
+                  </div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                  <p class="lead fw-normal mb-0">Patrimoines ajoutés</p>
+                </div>
+                <div class="row g-2" *ngIf="patrimoinenumber>0">
+                  <div class="col mb-2" *ngFor="let patrimoine of patrimoines">
+                    <img style="width: 300px; height: 250px;" [src]="imagepath + patrimoine.image"
+                      alt="image 1" class="w-100 rounded-3">
+                      <div class="p-4" style="background-color: #f8f9fa;">
+                      <p *ngIf="patrimoine.validation==0" style="display: inline;"  class="font-italic mb-1">Statut du patrimoine: </p> <p *ngIf="patrimoine.validation==0" style="display: inline; color: rgb(255, 217, 0);"  class="font-italic mb-1">En attente</p>
+                      <p *ngIf="patrimoine.validation==1" style="display: inline;"  class="font-italic mb-1">Statut du patrimoine: </p> <p *ngIf="patrimoine.validation==1" style="display: inline; color: rgb(15, 150, 105);"  class="font-italic mb-1">Accepté</p>
+
+                      <button style="text-align: left" *ngIf="patrimoine.validation==0" class="btn btn-primary">Modifier</button>
+                      <button style="text-align: right; margin-left: 30px;" *ngIf="patrimoine.validation==0" class="btn btn-danger">Supprimer</button>
+                    </div>
+                  </div>
+                 </div>
+
+                 <div class="row g-2" *ngIf="patrimoinenumber==0">
+                  <h2 style="text-align: center;">Aucun patrimoine publié!</h2>
+                 </div>
+
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+</body>
+
+</html>

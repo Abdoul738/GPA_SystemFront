@@ -1,0 +1,17 @@
+export interface Patrimoine {
+  nompat: string,
+  descpat: Text,
+  typepat: string,
+  entpat: string,
+  chfequippat: string,
+  imgpat: string,
+  planfilepat: string,
+  payspat: string,
+  villepat: string,
+  lat: any,
+  lng: any,
+  echeancepat: string,
+  idUser:any,
+  start: any,
+  end: any,
+}
