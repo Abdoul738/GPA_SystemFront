@@ -19,6 +19,8 @@ export class ProgrammesComponent implements OnInit {
   listactivites: any;
   form: FormGroup;
   form1: FormGroup;
+  form2: FormGroup;
+  form3: FormGroup;
   submitted: any;
   selection= false;
   saisi = false;
@@ -26,14 +28,22 @@ export class ProgrammesComponent implements OnInit {
   spinner= false;
   libAct: any;
   allusers:any;
-  week:any;
+  TitreProgramme:any;
+  titre_id:any;
 
   constructor( public http: HttpClient,public fb2: FormBuilder,private router: Router, private Utilisateurservice: FrontservicesService) {
     this.form = this.fb2.group({
       name: '',
       quantities: this.fb2.array([]) ,
     });
+    this.form3 = this.fb2.group({
+      titreprogramme: [''],
+    });
+    this.form2 = this.fb2.group({
+      libelleactivite: [''],
+    });
     this.form1=this.fb2.group({
+      titre_id: [''],
       userid: [''],
       libelleactivite: [''],
       date: [''],
@@ -45,6 +55,7 @@ export class ProgrammesComponent implements OnInit {
     this.getalluser();
     this.getactivites();
     this.select();
+    this.getweek();
   }
 
   ngOnInit(): void {
@@ -100,8 +111,7 @@ export class ProgrammesComponent implements OnInit {
 
   getweek() {
     this.Utilisateurservice.getweek().subscribe(data => {
-      this.week = data;
-      console.log(this.week);
+      this.TitreProgramme = data;
     })
   }
 
@@ -121,6 +131,12 @@ export class ProgrammesComponent implements OnInit {
   get FormControl1() {
     return this.form1.controls;
   }
+  get FormControl2() {
+    return this.form2.controls;
+  }
+  get FormControl3() {
+    return this.form3.controls;
+  }
 
   submitProgramme() {
 
@@ -130,13 +146,23 @@ export class ProgrammesComponent implements OnInit {
 
       const formdata: any = new FormData();
       const formdata1: any = new FormData();
+      const formdata2: any = new FormData();
+      const formdata3: any = new FormData();
 
-      formdata.append("libelleactivite", this.form1.controls['libelleactivite'].value);
+      formdata2.append("libelleactivite", this.form1.controls['libelleactivite'].value);
       
       formdata1.append("user_id", this.form1.controls['userid'].value);
       formdata1.append("activite_id", this.form1.controls['libelleactivite'].value);
       formdata1.append("date", this.form1.controls['date'].value);
       formdata1.append("statut",0);
+
+      formdata3.append("titreprogramme",this.TitreProgramme);
+
+      console.log(this.TitreProgramme);
+      console.log(this.form1.controls['libelleactivite'].value);
+      console.log(this.form1.controls['userid'].value);
+      console.log(this.form1.controls['date'].value);
+      console.log(this.form1.controls['statut'].value);
 
       const httpOptions = {
         headers: new HttpHeaders({
@@ -144,21 +170,27 @@ export class ProgrammesComponent implements OnInit {
         })
       };
 
-      if(this.saisi = true){
-        this.http.post('http://127.0.0.1:8000/api/createactivite', formdata, httpOptions).subscribe(data => {
-        this.activites = data;  
+      this.http.post('http://127.0.0.1:8000/api/createtitreprogramme', formdata3, httpOptions).subscribe(data => {
+        this.titre_id = data;  
+        console.log(this.titre_id);
+        formdata1.append("titre_id",this.titre_id);
 
-        formdata1.append("activite_id",this.activites);
-
-        this.http.post('http://127.0.0.1:8000/api/createprogramme', formdata1, httpOptions).subscribe(data => {
-        })
-        
-        })
-      }else{
-        this.http.post('http://127.0.0.1:8000/api/createprogramme', formdata1, httpOptions).subscribe(data => {
-          console.log(data);
-        })
-      }
+        if(this.saisi = true){
+          this.http.post('http://127.0.0.1:8000/api/createactivite', formdata2, httpOptions).subscribe(data => {
+          this.activites = data;  
+  
+          formdata1.append("activite_id",this.activites);
+  
+          this.http.post('http://127.0.0.1:8000/api/createprogramme', formdata1, httpOptions).subscribe(data => {
+          })
+          
+          })
+        }else{
+          this.http.post('http://127.0.0.1:8000/api/createprogramme', formdata1, httpOptions).subscribe(data => {
+            console.log(data);
+          })
+        }
+      })
 
       this.spinner = false;
 

@@ -26,6 +26,7 @@
     </button>   
     <div class="modal-dialog"tabindex="-1"role="dialog"[ngStyle]="{'display':displayStyle}">
       <div class="modal-content">
+        <h2>{{TitreProgramme}}</h2>
         <form [formGroup]="form1" (ngSubmit)="submitProgramme()">
           <div style="width: 300px;">
             <mat-select formControlName="userid" class="form-control">
