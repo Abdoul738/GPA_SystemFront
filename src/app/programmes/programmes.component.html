@@ -19,55 +19,77 @@
   </head>
   <body>
 
-    <div class="limiter">
-      <div  class="container-login100">
-        <div [ngClass]="{'classB' : color}" class="wrap-login100">
+    <!-- popup start -->
 
-          <form [formGroup]="form" (ngSubmit)="submitinscription()" novalidate>
-
-            <span class="acceuil">
-              Ajouter un utilisateurs
-            </span>
-
-
-            <div class="row justify-content-center">
-
-              <mat-form-field  appearance="fill">
-                <mat-label>Entrez son nom</mat-label>
-                <input matInput placeholder="Ouedraogo" formControlName="libellerole" [ngClass]="{ 'is-invalid': submitted && form.controls['libellerole'].errors }" [ngClass]="{ 'is-valid': submitted && form.controls['libellerole'].valid}" required>
-              </mat-form-field>
-              <span class="text-danger"*ngIf="(FormControl['libellerole'].touched || submitted) && FormControl['libellerole'].errors?.['required']">
-                  entrez un nom valide
-              </span>
-              <mat-form-field  appearance="fill">
-                <mat-label>Entrez son niveau</mat-label>
-                <input type="number" matInput placeholder="niveau" formControlName="niveau">
-              </mat-form-field>
-              
-
-              <div class="container-login100-form-btn">
-                <button [disabled]="form.invalid" type="submit" class="login100-form-btn">
-                  Ajouter
-                </button>
-              </div>
+    <button style="margin: 50px; padding: 10px"type="button"class="btn btn-primary"(click)="openPopup()">
+        <img src="/assets/img/iconVecteur/addProg.svg" width="35px" height="35px"/>
+    </button>   
+    <div class="modal-dialog"tabindex="-1"role="dialog"[ngStyle]="{'display':displayStyle}">
+      <div class="modal-content">
+        <form [formGroup]="form1" (ngSubmit)="submitProgramme()">
+          <div style="width: 300px;">
+            <mat-select formControlName="userid" class="form-control">
+              <mat-option *ngFor="let users of allusers" [value]="users.id">{{users.nom}} {{users.prenom}}</mat-option>
+            </mat-select> 
+          </div>
+          <div>
+            <div style="display:inline-block; width: 70%;">
+              <mat-select [hidden]="!selection" formControlName="libelleactivite" class="form-control">
+                <mat-option *ngFor="let listactivite of listactivites" [value]="listactivite.id">{{listactivite.libelleactivite}}</mat-option>
+              </mat-select>           
+              <input [hidden]="!saisi" matInput placeholder="Saisir..." formControlName="libelleactivite" class="form-control">
+            </div>   
+            <div style="display:inline-block;width: 8%;">
+              <img (click)="saisir()" src="/assets/img/iconVecteur/edit.svg" width="35px" height="35px"/>
+              <img (click)="select()" src="/assets/img/iconVecteur/select.svg" width="35px" height="35px"/>
             </div>
-
-            <br>
-
-            <div class="text-center p-t-12">
-
-              <a routerLink="/" class="txt2" href="#">
-                Acceuil
-                <i class="fa fa-home m-l-5" aria-hidden="true"></i>
-              </a>
-
-            </div>
-            
-          </form>
-
+            <div style="display:inline-block; width: 20%;">          
+              <input type="date" formControlName="date" class="form-control">
+            </div> 
+          </div>
+          <button type="submit" class="btn btn-primary">Ajouter</button>
+        </form>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger"(click)="closePopup()">Fermer</button>
         </div>
       </div>
-    </div>
+    </div>   
+    <!-- popup end -->
+
+
+    <!-- form start -->
+
+    <!-- <div class="container">
+      <h1>Angular FormArray Example - ItSolutionStuff.com</h1>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <p>   
+          <label for="name">Product Name:</label>  
+          <input type="text" id="name" name="name" formControlName="name" class="form-control">  
+        </p>
+        <table class="table table-bordered" formArrayName="quantities">
+          <tr>
+            <th colspan="2">Add Multiple Quantity:</th>
+            <th width="150px"><button type="button" (click)="addQuantity()" class="btn btn-primary">Add More</button></th>
+          </tr>
+          <tr *ngFor="let quantity of quantities().controls; let i=index" [formGroupName]="i">
+            <td>
+              Quantity :<input type="text" formControlName="qty" class="form-control">
+            </td>
+            <td>
+              Price:<input type="text" formControlName="price" class="form-control">
+            </td>
+            <td>
+              <button (click)="removeQuantity(i)" class="btn btn-danger">Remove</button>
+            </td>
+          </tr>
+        </table>
+        <button type="submit" class="btn btn-success">Submit</button>
+      </form>
+      <br/>  
+      {{this.form.value | json}}   
+    </div> -->
+    
+    <!-- form end -->
 
   </body>
 </html>

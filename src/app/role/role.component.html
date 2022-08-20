@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+<head>
+  <meta charset="UTF-8">
+
+  <title>Roles</title>
+
+    <link rel="stylesheet" href="/assets/css2/linearicons.css">
+    <link rel="stylesheet" href="/assets/css2/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/css2/jquery.DonutWidget.min.css">
+    <link rel="stylesheet" href="/assets/css2/bootstrap.css">
+    <link rel="stylesheet" href="/assets/css2/owl.carousel.css">
+    <link type="text/css" rel="stylesheet" href="/assets/css2/main.css">
+
+    <script data-require="angular.js@1.4.x" src="https://code.angularjs.org/1.4.12/angular.js" data-semver="1.4.9"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  </head>
+  <body>
+
+    <div class="limiter">
+      <div  class="container-login100">
+        <div [ngClass]="{'classB' : color}" class="wrap-login100">
+
+          <form [formGroup]="form" (ngSubmit)="submitinscription()" novalidate>
+
+            <span class="acceuil">
+              Ajouter un Role
+            </span>
+
+
+            <div class="row justify-content-center">
+
+              <mat-form-field  appearance="fill">
+                <mat-label>Entrez le libellé</mat-label>
+                <input matInput placeholder="Ouedraogo" formControlName="libellerole" required>
+              </mat-form-field>
+
+              <mat-form-field  appearance="fill">
+                <mat-label>Entrez le niveau</mat-label>
+                <input type="number" matInput placeholder="niveau" formControlName="niveau">
+              </mat-form-field>
+              
+              <mat-spinner *ngIf="spinner"></mat-spinner>
+              
+              <div class="container-login100-form-btn">
+                <button [disabled]="form.invalid" type="submit" class="login100-form-btn">
+                  Ajouter
+                </button>
+              </div>
+            </div>
+
+            <br>
+
+            <div class="text-center p-t-12">
+
+              <a routerLink="/" class="txt2" href="#">
+                Acceuil
+                <i class="fa fa-home m-l-5" aria-hidden="true"></i>
+              </a>
+
+            </div>
+            
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

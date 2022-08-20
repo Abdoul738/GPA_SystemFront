@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -13,22 +13,17 @@ import { AppComponent } from './app.component';
 import { MatSelectModule} from '@angular/material/select'
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
-import { HomeComponent } from './home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule,Routes } from '@angular/router';
 import { InscriptionsComponent } from './inscriptions/inscriptions.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AgmCoreModule } from '@agm/core';
-import { AddpatrimoineComponent } from './addpatrimoine/addpatrimoine.component';
-import { ListepatrimoinesComponent } from './listepatrimoines/listepatrimoines.component';
 import { NgxImageCompressService } from 'ngx-image-compress';
-import { DetailpatrimoineComponent } from './detailpatrimoine/detailpatrimoine.component';
-import { ProfilComponent } from './profil/profil.component';
-import { AdminviewComponent } from './adminview/adminview.component';
 import { SweetAlertOptions } from 'sweetalert2';
 import { MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { ProgrammesComponent } from './programmes/programmes.component';
 import { Observable } from 'rxjs';
+import { RoleComponent } from './role/role.component';
 const routes: Routes = [
 ];
 
@@ -36,14 +31,9 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent,
     InscriptionsComponent,
-    AddpatrimoineComponent,
-    ListepatrimoinesComponent,
-    DetailpatrimoineComponent,
-    ProfilComponent,
-    AdminviewComponent,
     ProgrammesComponent,
+    RoleComponent,
   ],
   imports: [
     BrowserModule,MatProgressSpinnerModule, MatSelectModule, MatFormFieldModule ,HttpClientModule,MatButtonModule, RouterModule.forRoot(routes),ReactiveFormsModule,MatNativeDateModule,MatDatepickerModule,MatInputModule,

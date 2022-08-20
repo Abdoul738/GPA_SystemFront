@@ -54,9 +54,10 @@ export class InscriptionsComponent implements OnInit {
     this.submitted=true;
     this.spinner=true;
     this.block=true;
-    this.color=true;
+    // this.color=true;
     setTimeout(() => {
 
+      this.submitted=true;
       const formdata:any =new FormData();
 
       console.log(this.form.controls['nom'].value)
@@ -80,56 +81,12 @@ export class InscriptionsComponent implements OnInit {
       })
     };
 
-    // const email = this.form.controls['email'].value;
-
-    // this.verifemail = this.http.get('http://127.0.0.1:8000/api/getuserbyemail/'+email);
-    // console.log(this.verifemail);
-    // if(this.verifemail.email == this.form.controls['email'].value){
-
-    //   Swal.fire({
-    //     title: 'Oupsss !!!',
-    //     text: 'Il semblerait que cet utilisateur existe déja dans le systeme.',
-    //     icon: 'error',
-    //   })
-
-    // }
-    // else{
-
-    //   this.http.post('http://127.0.0.1:8000/api/registerUser',formdata,httpOptions).subscribe(data=>{
-    //     this.users = data;
-    //     console.log(this.users);
-    //   })
-
-    // if(this.users=0)
-    // {
-    //   Swal.fire({
-    //     title: 'Oupsss !!!',
-    //     text: 'Il semblerait que cet utilisateur existe déja dans le systeme.',
-    //     icon: 'error',
-    //   })
-    //  this.ngOnInit();
-    // }
-
-    // else
-    // {
-    //   Swal.fire({
-    //     title: 'success !!!',
-    //     text: 'Le nouvel utilisateur été enregistrer',
-    //     icon: 'success',
-    //   })
-    //  this.router.navigateByUrl('/accueil');
-    // }
-
-    // }
-
-
-
     this.http.post('http://127.0.0.1:8000/api/registerUser',formdata,httpOptions).subscribe(data=>{
       this.users = data;
       console.log(this.users);
     })
 
-    if(this.users=0)
+    if(this.users!=0)
     {
       Swal.fire({
         title: 'Oups?',
@@ -146,13 +103,13 @@ export class InscriptionsComponent implements OnInit {
         text: 'Le nouvel utilisateur été enregistrer',
         icon: 'success',
       })
-     this.router.navigateByUrl('/accueil');
+    //  this.router.navigateByUrl('/accueil');
     }
 
 
         this.spinner=false;
         this.block=false;
-        this.color=false;
+        // this.color=false;
 
     },3000)
 

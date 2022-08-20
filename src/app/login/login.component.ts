@@ -36,25 +36,7 @@ spinner =false;
   ngOnInit(): void {
 
   }
-/*
-  submitLogin(form: NgForm){
-    console.log(form.value);
-    this.Utilisateurservice.login(form.value).subscribe(data=>{
-      this.user=data;
-      console.log(this.user);
-      if(this.user === 0)
-      {
-        console.log("mauvais email");
-      }
-      else
-      {
-      console.log(data);
-      localStorage.setItem('identifiant',this.user);
-      this.router.navigateByUrl('/');
-      }
-    })
-  }
-*/
+
   submitLogin2(){
 
 
