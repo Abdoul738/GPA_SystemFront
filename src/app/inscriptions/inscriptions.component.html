@@ -18,90 +18,160 @@
 
   </head>
   <body>
-
-    <div class="limiter">
-      <div  class="container-login100">
+    <!-- START USERS'S CREATE POPUP -->
+    <button style="margin: 50px; padding: 10px; float:right"type="button"class="btn btn-primary"(click)="openPopup()">
+      <img src="/assets/img/iconVecteur/addUser.svg" width="35px" height="35px"/>
+    </button>   
+    <div class="modal-dialog1"tabindex="-1"role="dialog"[ngStyle]="{'display':displayStyle}">
+      <div class="modal-content">
+        <!-- form start -->
         <div [ngClass]="{'classB' : color}" class="wrap-login100">
-
           <form [formGroup]="form" (ngSubmit)="submitinscription()" novalidate>
-
-            <span class="acceuil">
-              Ajouter un utilisateurs
-            </span>
-
-
+            <span class="acceuil">Ajouter un utilisateurs</span>
             <div class="row justify-content-center">
-
               <mat-form-field  appearance="fill">
                 <mat-label>Entrez son nom</mat-label>
                 <input [readonly]="block" matInput placeholder="Ouedraogo" formControlName="nom" [ngClass]="{ 'is-invalid': submitted && form.controls['nom'].errors }" [ngClass]="{ 'is-valid': submitted && form.controls['nom'].valid}" required>
               </mat-form-field>
-              <span class="text-danger"*ngIf="(FormControl['nom'].touched || submitted) && FormControl['nom'].errors?.['required']">
-                  entrez un nom valide
-              </span>
+              <span class="text-danger"*ngIf="(FormControl['nom'].touched || submitted) && FormControl['nom'].errors?.['required']">entrez un nom valide</span>
 
               <mat-form-field appearance="fill">
                 <mat-label>Entrez son prénom</mat-label>
                 <input [readonly]="block" matInput placeholder="Tasséré" formControlName="prenom" [ngClass]="{ 'is-invalid': submitted && form.controls['prenom'].errors }" [ngClass]="{ 'is-valid': submitted && form.controls['prenom'].valid}" required>
               </mat-form-field>
-              <span class="text-danger"*ngIf="(FormControl['prenom'].touched || submitted) && FormControl['prenom'].errors?.['required']">
-                  entrez un prénom valide
-              </span>
+              <span class="text-danger"*ngIf="(FormControl['prenom'].touched || submitted) && FormControl['prenom'].errors?.['required']">entrez un prénom valide</span>
 
               <mat-form-field appearance="fill">
                 <mat-label>Entrez son email</mat-label>
                 <input [readonly]="block" matInput placeholder="Ouedraogo" formControlName="email" [ngClass]="{ 'is-invalid': submitted && form.controls['email'].errors }" [ngClass]="{ 'is-valid': submitted && form.controls['email'].valid}" required>
               </mat-form-field>
-              <span class="text-danger"*ngIf="(FormControl['email'].touched || submitted) && FormControl['email'].errors?.['required']">
-                  entrez un email valide
-              </span>
+              <span class="text-danger"*ngIf="(FormControl['email'].touched || submitted) && FormControl['email'].errors?.['required']">entrez un email valide</span>
 
               <mat-form-field appearance="fill">
                 <mat-label>Entrez son contact</mat-label>
                 <input [readonly]="block" matInput placeholder="Ouedraogo" formControlName="numero" [ngClass]="{ 'is-invalid': submitted && form.controls['numero'].errors }" [ngClass]="{ 'is-valid': submitted && form.controls['numero'].valid}" required>
               </mat-form-field>
-              <span class="text-danger"*ngIf="(FormControl['numero'].touched || submitted) && FormControl['numero'].errors?.['required']">
-                  entrez un numero valide
-              </span>
+              <span class="text-danger"*ngIf="(FormControl['numero'].touched || submitted) && FormControl['numero'].errors?.['required']">entrez un numero valide</span>
 
               <mat-form-field appearance="fill">
-
-                <mat-label>
-                  Choisissez le poste
-                </mat-label>
-  
+                <mat-label>Choisissez le poste</mat-label> 
                 <mat-select formControlName="role_id">
-                  <mat-option *ngFor="let roles of role" [value]="roles.id">
-                    {{roles.libellerole}}
-                  </mat-option>
-                </mat-select>
-                
+                  <mat-option *ngFor="let roles of role" [value]="roles.id">{{roles.libellerole}}</mat-option>
+                </mat-select>               
               </mat-form-field>
-              <mat-spinner *ngIf="spinner"></mat-spinner>
-
               <div class="container-login100-form-btn">
-                <button [disabled]="form.invalid" type="submit" class="login100-form-btn">
-                  Ajouter
-                </button>
+                <button [disabled]="form.invalid" type="submit" class="login100-form-btn">Ajouter</button>
               </div>
-            </div>
-
-            <br>
-
+              <mat-spinner *ngIf="spinner"></mat-spinner>
+            </div><br>
             <div class="text-center p-t-12">
-
-              <a routerLink="/" class="txt2" href="#">
-                Acceuil
-                <i class="fa fa-home m-l-5" aria-hidden="true"></i>
-              </a>
-
-            </div>
-            
+              <a routerLink="/" class="txt2" href="#">Acceuil<i class="fa fa-home m-l-5" aria-hidden="true"></i></a>
+            </div>         
           </form>
-
+        </div>
+        <!-- form end -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger"(click)="closePopup()">Fermer</button>
         </div>
       </div>
+    </div>   
+    <!-- END USERS'S CREATE POPUP -->
+
+    <!-- START USERS'S UPDATE POPUP -->  
+    <div class="modal-dialog1"tabindex="-1"role="dialog"[ngStyle]="{'display':UserUpdate_displayStyle}">
+      <div class="modal-content">
+        <!-- form start -->
+        <div *ngFor="let userToupdates of userToupdate" [ngClass]="{'classB' : color}" class="wrap-login100">
+          <form [formGroup]="form" (ngSubmit)="submitupdate(userToupdates.id)" novalidate>
+            <span class="acceuil">Modifier un utilisateurs</span>
+            <div class="row justify-content-center">
+              <mat-form-field  appearance="fill">
+                <mat-label>Entrez son nom</mat-label>
+                <input [ngModel]="userToupdates.nom" [readonly]="block" matInput placeholder="Ouedraogo" formControlName="nom" [ngClass]="{ 'is-invalid': submitted && form.controls['nom'].errors }" [ngClass]="{ 'is-valid': submitted && form.controls['nom'].valid}" required>
+              </mat-form-field>
+              <span class="text-danger"*ngIf="(FormControl['nom'].touched || submitted) && FormControl['nom'].errors?.['required']">entrez un nom valide</span>
+
+              <mat-form-field appearance="fill">
+                <mat-label>Entrez son prénom</mat-label>
+                <input [ngModel]="userToupdates.prenom" [readonly]="block" matInput placeholder="Tasséré" formControlName="prenom" [ngClass]="{ 'is-invalid': submitted && form.controls['prenom'].errors }" [ngClass]="{ 'is-valid': submitted && form.controls['prenom'].valid}" required>
+              </mat-form-field>
+              <span class="text-danger"*ngIf="(FormControl['prenom'].touched || submitted) && FormControl['prenom'].errors?.['required']">entrez un prénom valide</span>
+
+              <mat-form-field appearance="fill">
+                <mat-label>Entrez son email</mat-label>
+                <input [ngModel]="userToupdates.email" [readonly]="block" matInput placeholder="Ouedraogo" formControlName="email" [ngClass]="{ 'is-invalid': submitted && form.controls['email'].errors }" [ngClass]="{ 'is-valid': submitted && form.controls['email'].valid}" required>
+              </mat-form-field>
+              <span class="text-danger"*ngIf="(FormControl['email'].touched || submitted) && FormControl['email'].errors?.['required']">entrez un email valide</span>
+
+              <mat-form-field appearance="fill">
+                <mat-label>Entrez son contact</mat-label>
+                <input [ngModel]="userToupdates.numero" [readonly]="block" matInput placeholder="Ouedraogo" formControlName="numero" [ngClass]="{ 'is-invalid': submitted && form.controls['numero'].errors }" [ngClass]="{ 'is-valid': submitted && form.controls['numero'].valid}" required>
+              </mat-form-field>
+              <span class="text-danger"*ngIf="(FormControl['numero'].touched || submitted) && FormControl['numero'].errors?.['required']">entrez un numero valide</span>
+
+              <mat-form-field appearance="fill">
+                <mat-label>Choisissez le poste</mat-label> 
+                <mat-select [ngModel]="userToupdates.role_id" formControlName="role_id">
+                  <mat-option *ngFor="let roles of role" [value]="roles.id">{{roles.libellerole}}</mat-option>
+                </mat-select>               
+              </mat-form-field>
+              <div class="container-login100-form-btn">
+                <button [disabled]="form.invalid" type="submit" class="login100-form-btn">Modifier</button>
+              </div>
+              <mat-spinner *ngIf="spinner"></mat-spinner>
+            </div><br>
+            <div class="text-center p-t-12">
+              <a routerLink="/" class="txt2" href="#">Acceuil<i class="fa fa-home m-l-5" aria-hidden="true"></i></a>
+            </div>         
+          </form>
+        </div>
+        <!-- form end -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger"(click)="closeUserUpdatePopup()">Fermer</button>
+        </div>
+      </div>
+    </div>   
+    <!-- END USERS'S UPDATE POPUP -->
+
+    <!-- START USERS'S LISTS  -->
+    <div class="card-body" [ngStyle]="{'display':displayStyle1}">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th style="width: 10px">ID</th>
+            <th>Nom et prénom</th>
+            <th>Poste</th>
+            <th>Contacts</th>
+            <th style="width: 205px">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="tr" *ngFor="let users of allusers">
+            <td>{{users.id}}</td>
+            <td>
+              <div class="Vector">
+                <img src="/assets/img/iconVecteur/avatar.svg" width="35px" height="35px"/>
+              </div>
+              <div style="display: inline-block;"><h3><strong>{{users.nom}} {{users.prenom}}</strong></h3></div>
+            </td>
+            <td>{{users.libellerole}}</td>
+            <td>{{users.numero}}</td>
+            <td>
+              <div class="sheet">
+                <img src="/assets/img/iconVecteur/view.svg" width="20px" height="20px"/>
+              </div>
+              <div class="sheet0" (click)="openUserUpdate_Popup(users.id)">
+                <img src="/assets/img/iconVecteur/edit.svg" width="20px" height="20px"/>
+              </div>
+              <div class="sheet1" (click)="deleteuser(users.id)">
+                <img src="/assets/img/iconVecteur/delete.svg" width="20px" height="20px"/>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+    <!-- END USERS'S LISTS -->
 
   </body>
 </html>

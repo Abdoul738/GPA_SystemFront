@@ -25,6 +25,8 @@
         <img src="/assets/img/iconVecteur/addProg.svg" width="35px" height="35px"/>
     </button>   
     <div class="modal-dialog"tabindex="-1"role="dialog"[ngStyle]="{'display':displayStyle}">
+
+      <!-- form start -->
       <div class="modal-content">
         <h2>{{TitreProgramme}}</h2>
         <form [formGroup]="form1" (ngSubmit)="submitProgramme()">
@@ -54,6 +56,8 @@
           <button type="button" class="btn btn-danger"(click)="closePopup()">Fermer</button>
         </div>
       </div>
+      <!-- form end -->
+      
     </div>   
     <!-- popup end -->
 

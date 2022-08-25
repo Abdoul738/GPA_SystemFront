@@ -43,7 +43,7 @@ export class FrontservicesService{
 
 
  create(utilisateur: Utilisateur){
-    console.log(utilisateur.profession);
+    console.log(utilisateur);
     return this.httpClient.post('http://127.0.0.1:8000/api/registerUser',utilisateur);
   }
 
@@ -65,14 +65,15 @@ export class FrontservicesService{
     return this.httpClient.get('http://127.0.0.1:8000/api/getactivites');
   }
 
-  getuser(id:any)
-  {
-    console.log(id)
-    return this.httpClient.get('http://127.0.0.1:8000/api/getuser/'+id);
+  getuser(id:any){
+    return this.httpClient.get('http://127.0.0.1:8000/api/getuserbyid/'+id);
   }
 
-  getuserbyemail(email:any)
-  {
+  deleteuser(id:any){
+    return this.httpClient.get('http://127.0.0.1:8000/api/deluser/'+id);
+  }
+
+  getuserbyemail(email:any){
     return this.httpClient.get('http://127.0.0.1:8000/api/getuserbyemail/'+email);
   }
 

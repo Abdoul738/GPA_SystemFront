@@ -64,11 +64,11 @@ export class RoleComponent implements OnInit {
       console.log(this.users);
     })
 
-    if(this.users != 0)
+    if(this.users = 0)
     {
       Swal.fire({
-        title: 'Oups?',
-        text: 'Il semblerait que votre enregistrement ait rencontré un probléme',
+        title: 'Oups !!!',
+        text: 'Ce poste existe déjà.',
         icon: 'error',
       })
      this.ngOnInit();
@@ -78,7 +78,7 @@ export class RoleComponent implements OnInit {
     {
       Swal.fire({
         title: 'success !!!',
-        text: 'Le nouvel utilisateur été enregistrer',
+        text: 'Nouveau poste enregistré.',
         icon: 'success',
       })
     }

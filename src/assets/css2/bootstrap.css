@@ -4352,7 +4352,6 @@ button.close {
   flex-direction: column;
   background-color: #fff;
   background-clip: padding-box;
-  border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 0.3rem;
   outline: 0;
 }
@@ -4422,6 +4421,10 @@ button.close {
   .modal-dialog {
     max-width: 70%;
     margin: 30px auto;
+  }
+  .modal-dialog1 {
+    max-width: 30%;
+    margin: 20px auto;
   }
   .modal-sm {
     max-width: 300px;
