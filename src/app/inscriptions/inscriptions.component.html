@@ -19,9 +19,6 @@
   </head>
   <body>
     <!-- START USERS'S CREATE POPUP -->
-    <button style="margin: 50px; padding: 10px; float:right"type="button"class="btn btn-primary"(click)="openPopup()">
-      <img src="/assets/img/iconVecteur/addUser.svg" width="35px" height="35px"/>
-    </button>   
     <div class="modal-dialog1"tabindex="-1"role="dialog"[ngStyle]="{'display':displayStyle}">
       <div class="modal-content">
         <!-- form start -->
@@ -135,6 +132,9 @@
 
     <!-- START USERS'S LISTS  -->
     <div class="card-body" [ngStyle]="{'display':displayStyle1}">
+      <button style="margin: 50px; padding: 10px; float:right"type="button"class="btn btn-primary"(click)="openPopup()">
+        <img src="/assets/img/iconVecteur/addUser.svg" width="35px" height="35px"/>
+      </button>   
       <table class="table table-bordered">
         <thead>
           <tr>

@@ -6,7 +6,7 @@ import {FrontservicesService} from '../services/frontservices.service'
 import { Utilisateur } from '../interfaces/utilisateur';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
-// import swal from 'sweetalert';
+
 @Component({
   selector: 'app-inscriptions',
   templateUrl: './inscriptions.component.html',
@@ -24,7 +24,7 @@ export class InscriptionsComponent implements OnInit {
   allusers:any;
   public userToupdate:any;
 
-  constructor( public http: HttpClient,public fb2: FormBuilder,private router: Router, private Utilisateurservice: FrontservicesService) {
+  constructor(public http: HttpClient,public fb2: FormBuilder,private router: Router, private Utilisateurservice: FrontservicesService) {
     this.form=this.fb2.group({
       nom: ['', [Validators.required,Validators.pattern('^[a-zA-Z \-\']+'),Validators.minLength(2)]],
       prenom: ['', [Validators.required,Validators.pattern('^[a-zA-Z \-\']+'),Validators.minLength(4)]],

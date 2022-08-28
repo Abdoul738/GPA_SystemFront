@@ -21,9 +21,11 @@ import { AgmCoreModule } from '@agm/core';
 import { NgxImageCompressService } from 'ngx-image-compress';
 import { SweetAlertOptions } from 'sweetalert2';
 import { MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatProgressBarModule}from '@angular/material/progress-bar';
 import { ProgrammesComponent } from './programmes/programmes.component';
 import { Observable } from 'rxjs';
 import { RoleComponent } from './role/role.component';
+import { AccueilComponent } from './accueil/accueil.component';
 const routes: Routes = [
 ];
 
@@ -34,9 +36,10 @@ const routes: Routes = [
     InscriptionsComponent,
     ProgrammesComponent,
     RoleComponent,
+    AccueilComponent,
   ],
   imports: [
-    BrowserModule,MatProgressSpinnerModule, MatSelectModule, MatFormFieldModule ,HttpClientModule,MatButtonModule, RouterModule.forRoot(routes),ReactiveFormsModule,MatNativeDateModule,MatDatepickerModule,MatInputModule,
+    BrowserModule,MatProgressSpinnerModule,MatProgressBarModule, MatSelectModule, MatFormFieldModule ,HttpClientModule,MatButtonModule, RouterModule.forRoot(routes),ReactiveFormsModule,MatNativeDateModule,MatDatepickerModule,MatInputModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAosX1kf5h0myKulz8AF9sDKxtMlI69Sko',
       libraries: ['places']

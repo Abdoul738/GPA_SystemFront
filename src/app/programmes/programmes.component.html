@@ -16,14 +16,16 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+    <style>
+      ::ng-deep .mat-progress-bar-fill::after {background-color: #2e9ceb;}
+      ::ng-deep .mat-progress-bar-buffer {background: #979797;}  
+      ::ng-deep .mat-progress-bar {border-radius: 100px;}
+    </style>
+
   </head>
   <body>
 
-    <!-- popup start -->
-
-    <button style="margin: 50px; padding: 10px"type="button"class="btn btn-primary"(click)="openPopup()">
-        <img src="/assets/img/iconVecteur/addProg.svg" width="35px" height="35px"/>
-    </button>   
+    <!-- POPUP START -->  
     <div class="modal-dialog"tabindex="-1"role="dialog"[ngStyle]="{'display':displayStyle}">
 
       <!-- form start -->
@@ -38,7 +40,7 @@
           <div>
             <div style="display:inline-block; width: 70%;">
               <mat-select [hidden]="!selection" formControlName="libelleactivite" class="form-control">
-                <mat-option *ngFor="let listactivite of listactivites" [value]="listactivite.id">{{listactivite.libelleactivite}}</mat-option>
+                <mat-option *ngFor="let listactivite of listactivites" [value]="listactivite.libelleactivite">{{listactivite.libelleactivite}}</mat-option>
               </mat-select>           
               <input [hidden]="!saisi" matInput placeholder="Saisir..." formControlName="libelleactivite" class="form-control">
             </div>   
@@ -47,7 +49,7 @@
               <img (click)="select()" src="/assets/img/iconVecteur/select.svg" width="35px" height="35px"/>
             </div>
             <div style="display:inline-block; width: 20%;">          
-              <input type="date" formControlName="date" class="form-control">
+              <input type="date" pattern="[0-9]{2}-[0-9]{2}-[0-9]{4}" formControlName="date" class="form-control">
             </div> 
           </div>
           <button type="submit" class="btn btn-primary">Ajouter</button>
@@ -59,7 +61,44 @@
       <!-- form end -->
       
     </div>   
-    <!-- popup end -->
+    <!-- POPUP END -->
+
+    <!-- LIST START --> 
+    <div [ngStyle]="{'display':displayStyle1}">
+      <button style="margin: 50px; padding: 10px; float:right"type="button"class="btn btn-primary"(click)="openPopup()">
+        <img src="/assets/img/iconVecteur/addProg.svg" width="35px" height="35px"/>
+      </button> 
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th style="width: 10px">ID</th>
+            <th>Titre  de programme</th>
+            <th>Taux d'execution</th>
+            <th style="width: 205px">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="tr" *ngFor="let programmes of allprogrammes">
+            <td>{{programmes.id}}</td>
+            <td>
+              <div class="Vector">
+                <img src="/assets/img/iconVecteur/file.svg" width="35px" height="35px"/>
+              </div>
+              <div style="display: inline-block;"><h3><strong>{{programmes.titreprogramme}}</strong></h3></div>
+            </td>
+            <td>{{programmes.progress}}%
+              <mat-progress-bar style="width: 250px;height: 10.8px;" mode="determinate" [value]="programmes.progress"></mat-progress-bar>
+            </td>
+            <td>
+              <div class="sheet">
+                <img src="/assets/img/iconVecteur/view.svg" width="20px" height="20px"/>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- LIST END -->
 
 
     <!-- form start -->
