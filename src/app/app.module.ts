@@ -26,6 +26,7 @@ import { ProgrammesComponent } from './programmes/programmes.component';
 import { Observable } from 'rxjs';
 import { RoleComponent } from './role/role.component';
 import { AccueilComponent } from './accueil/accueil.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 const routes: Routes = [
 ];
 
@@ -37,6 +38,7 @@ const routes: Routes = [
     ProgrammesComponent,
     RoleComponent,
     AccueilComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,MatProgressSpinnerModule,MatProgressBarModule, MatSelectModule, MatFormFieldModule ,HttpClientModule,MatButtonModule, RouterModule.forRoot(routes),ReactiveFormsModule,MatNativeDateModule,MatDatepickerModule,MatInputModule,

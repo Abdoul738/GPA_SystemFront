@@ -1017,7 +1017,7 @@ pre code {
   }
   .col-lg-7 {
     flex: 0 0 58.33333%;
-    max-width: 58.33333%;
+    max-width: 100%;
   }
   .col-lg-8 {
     flex: 0 0 66.66667%;
@@ -2972,7 +2972,7 @@ tbody.collapse.show {
 }
 
 .nav-link.disabled {
-  color: #868e96;
+  color: #ddd;
 }
 
 .nav-tabs {
@@ -2994,14 +2994,14 @@ tbody.collapse.show {
 }
 
 .nav-tabs .nav-link.disabled {
-  color: #868e96;
+  color: white;
   background-color: transparent;
   border-color: transparent;
 }
 
 .nav-tabs .nav-link.active,
 .nav-tabs .nav-item.show .nav-link {
-  color: #495057;
+  color: white;
   background-color: #fff;
   border-color: #ddd #ddd #fff;
 }
