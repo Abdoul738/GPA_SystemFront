@@ -1,9 +1,9 @@
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { FormsModule ,ReactiveFormsModule} from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
-import { MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -27,6 +27,7 @@ import { Observable } from 'rxjs';
 import { RoleComponent } from './role/role.component';
 import { AccueilComponent } from './accueil/accueil.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ProgrammeComponent } from './programme/programme.component';
 
 
 const routes: Routes = [
@@ -41,6 +42,7 @@ const routes: Routes = [
     RoleComponent,
     AccueilComponent,
     DashboardComponent,
+    ProgrammeComponent,
   ],
   imports: [
     BrowserModule,MatProgressSpinnerModule,MatProgressBarModule, MatSelectModule, MatFormFieldModule ,HttpClientModule,MatButtonModule, RouterModule.forRoot(routes),ReactiveFormsModule,MatNativeDateModule,MatDatepickerModule,MatInputModule,

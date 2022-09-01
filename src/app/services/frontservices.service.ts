@@ -5,7 +5,7 @@ import {  Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Utilisateur } from '../interfaces/utilisateur';
 import { ValidatorFn, AbstractControl } from '@angular/forms';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 
 const baseUrl = 'http://127.0.0.1:8000/api/createactivite';
 
@@ -19,7 +19,7 @@ export class FrontservicesService{
   public username: any;
 
   MatchPassword(password: string, confirmPassword: string) {
-    return (formGroup: FormGroup) => {
+    return (formGroup: UntypedFormGroup) => {
       const passwordControl = formGroup.controls[password];
       const confirmPasswordControl = formGroup.controls[confirmPassword];
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder,NgForm  }   from '@angular/forms';
+import { UntypedFormGroup, FormControl, Validators, UntypedFormBuilder,NgForm  }   from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import {FrontservicesService} from '../services/frontservices.service'
@@ -16,7 +16,7 @@ export class InscriptionsComponent implements OnInit {
   public users: any;
   role:any;
   verifemail: any;
-  form: FormGroup;
+  form: UntypedFormGroup;
   submitted: any;
   spinner= false;
   block= false;
@@ -24,7 +24,7 @@ export class InscriptionsComponent implements OnInit {
   allusers:any;
   public userToupdate:any;
 
-  constructor(public http: HttpClient,public fb2: FormBuilder,private router: Router, private Utilisateurservice: FrontservicesService) {
+  constructor(public http: HttpClient,public fb2: UntypedFormBuilder,private router: Router, private Utilisateurservice: FrontservicesService) {
     this.form=this.fb2.group({
       nom: ['', [Validators.required,Validators.pattern('^[a-zA-Z \-\']+'),Validators.minLength(2)]],
       prenom: ['', [Validators.required,Validators.pattern('^[a-zA-Z \-\']+'),Validators.minLength(4)]],

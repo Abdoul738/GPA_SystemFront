@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder,NgForm  }   from '@angular/forms';
+import { UntypedFormGroup, FormControl, Validators, UntypedFormBuilder,NgForm  }   from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import {FrontservicesService} from '../services/frontservices.service'
@@ -15,10 +15,10 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 export class AccueilComponent implements OnInit {
   public actualprogram: any;
   programValid:any;
-  form: FormGroup;
+  form: UntypedFormGroup;
   data:any;
 
-  constructor(public http: HttpClient,public fb2: FormBuilder,private router: Router, private Utilisateurservice: FrontservicesService) 
+  constructor(public http: HttpClient,public fb2: UntypedFormBuilder,private router: Router, private Utilisateurservice: FrontservicesService) 
   {
     this.form=this.fb2.group({
       capteur_id: ['', ''],

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder,NgForm  }   from '@angular/forms';
+import { UntypedFormGroup, FormControl, Validators, UntypedFormBuilder,NgForm  }   from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import {FrontservicesService} from '../services/frontservices.service'
@@ -17,12 +17,12 @@ export class RoleComponent implements OnInit {
   public users: any;
   role:any;
   verifemail: any;
-  form: FormGroup;
+  form: UntypedFormGroup;
   submitted: any;
   spinner= false;
   block= false;
   color=false;
-  constructor( public http: HttpClient,public fb2: FormBuilder,private router: Router, private Utilisateurservice: FrontservicesService) {
+  constructor( public http: HttpClient,public fb2: UntypedFormBuilder,private router: Router, private Utilisateurservice: FrontservicesService) {
     this.form=this.fb2.group({
       libellerole: [''],
       niveau: [''],

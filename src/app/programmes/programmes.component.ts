@@ -1,6 +1,6 @@
 import { __values } from 'tslib';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder,FormArray  }   from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder,UntypedFormArray  }   from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FrontservicesService} from '../services/frontservices.service'
@@ -19,10 +19,10 @@ export class ProgrammesComponent implements OnInit {
 
   public users: any;
   listactivites: any;
-  form: FormGroup;
-  form1: FormGroup;
-  form2: FormGroup;
-  form3: FormGroup;
+  form: UntypedFormGroup;
+  form1: UntypedFormGroup;
+  form2: UntypedFormGroup;
+  form3: UntypedFormGroup;
   submitted: any;
   selection= false;
   saisi = false;
@@ -34,7 +34,7 @@ export class ProgrammesComponent implements OnInit {
   TitreProgramme:any;
   titre_id:any;
 
-  constructor( public http: HttpClient,public fb2: FormBuilder,private router: Router, private Utilisateurservice: FrontservicesService) {
+  constructor( public http: HttpClient,public fb2: UntypedFormBuilder,private router: Router, private Utilisateurservice: FrontservicesService) {
     this.form = this.fb2.group({
       name: '',
       quantities: this.fb2.array([]) ,
@@ -67,11 +67,11 @@ export class ProgrammesComponent implements OnInit {
   }
 
   // Start dynamic array
-  quantities() : FormArray {
-    return this.form.get("quantities") as FormArray
+  quantities() : UntypedFormArray {
+    return this.form.get("quantities") as UntypedFormArray
   }
 
-  newQuantity(): FormGroup {
+  newQuantity(): UntypedFormGroup {
     return this.fb2.group({
       qty: '',
       price: '',

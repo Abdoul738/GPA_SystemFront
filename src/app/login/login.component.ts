@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormGroup, FormControl, Validators, FormBuilder,NgForm  }   from '@angular/forms';
+import { UntypedFormGroup, FormControl, Validators, UntypedFormBuilder,NgForm  }   from '@angular/forms';
 import {FrontservicesService} from '../services/frontservices.service'
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Component({
@@ -10,12 +10,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class LoginComponent implements OnInit {
 public user:any;
-form: FormGroup;
+form: UntypedFormGroup;
 submitted=false;
 verification=true;
 hide = false;
 spinner =false;
-  constructor( public http: HttpClient,public fb: FormBuilder,private router: Router, private Utilisateurservice: FrontservicesService){
+  constructor( public http: HttpClient,public fb: UntypedFormBuilder,private router: Router, private Utilisateurservice: FrontservicesService){
     this.form=this.fb.group({
       email: ['',[ Validators.required]],
       password:['', [Validators.required,Validators.minLength(3) ]],
