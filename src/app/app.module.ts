@@ -27,6 +27,8 @@ import { Observable } from 'rxjs';
 import { RoleComponent } from './role/role.component';
 import { AccueilComponent } from './accueil/accueil.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+
+
 const routes: Routes = [
 ];
 
