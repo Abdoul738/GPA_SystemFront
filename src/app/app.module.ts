@@ -28,6 +28,7 @@ import { RoleComponent } from './role/role.component';
 import { AccueilComponent } from './accueil/accueil.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProgrammeComponent } from './programme/programme.component';
+import { NgChartsModule } from 'ng2-charts';
 
 
 const routes: Routes = [
@@ -45,13 +46,14 @@ const routes: Routes = [
     ProgrammeComponent,
   ],
   imports: [
+    NgChartsModule,
     BrowserModule,MatProgressSpinnerModule,MatProgressBarModule, MatSelectModule, MatFormFieldModule ,HttpClientModule,MatButtonModule, RouterModule.forRoot(routes),ReactiveFormsModule,MatNativeDateModule,MatDatepickerModule,MatInputModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAosX1kf5h0myKulz8AF9sDKxtMlI69Sko',
       libraries: ['places']
     }),
      FormsModule,
-     AppRoutingModule, BrowserAnimationsModule,MatToolbarModule,MatCardModule,MatIconModule,MatFormFieldModule
+     AppRoutingModule, BrowserAnimationsModule,MatToolbarModule,MatCardModule,MatIconModule,MatFormFieldModule, NgChartsModule
   ],
   providers: [NgxImageCompressService],
   bootstrap: [AppComponent]

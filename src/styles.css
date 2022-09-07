@@ -237,6 +237,7 @@ iframe {
 }
 .header-default {width: 100%;height: 50px;border: solid 2px #2e9ceb;background-color: #fff; display: inline-block;}
 .navbar-element{align-items: center; margin-top: 7px; display: inline-block; margin-left: 5px; margin-right: 5px;}
+.checkbox{border-color: #f9d521; border: 2px solid; margin:2px 5px 2px 5px;}
 
 .wrap-login100 {
   width: 100%;

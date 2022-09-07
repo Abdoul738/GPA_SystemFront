@@ -179,6 +179,16 @@
         </div>
         <!-- /.row -->
       </div><!-- /.container-fluid -->
+      <h1>Evolution des activites de la semaine</h1>  
+      <div style="display: block;">
+        <canvas baseChart width="500" height="200"
+          [datasets]="lineChartData"
+          [labels]="alldaysweek"
+          [options]="lineChartOptions"
+          [legend]="lineChartLegend"
+          [plugins]="lineChartPlugins">
+        </canvas>
+      </div>
     </section>
     <!-- /.content -->
   </div>
@@ -196,6 +206,7 @@
 </div>
 <!-- ./wrapper -->
 
+<script src="node_modules/chart.js/src/chart.js"></script>
 <!-- jQuery -->
 <script src="/assets/others/plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->

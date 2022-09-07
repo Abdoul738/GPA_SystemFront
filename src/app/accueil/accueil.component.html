@@ -58,8 +58,8 @@
   </nav>
   <!-- /.navbar -->
 
-  <!-- START USERS'S LISTS  -->
-  <div class="content-wrapper card-body">
+  <!-- START PROGAMME'S LISTS  -->
+  <div class="content-wrapper card-body" [ngStyle]="{'display':ProgramList_displayStyle}">
     <table class="table table-bordered">
       <thead>
         <tr>
@@ -77,13 +77,41 @@
           <td>{{programme.libelleactivite}}</td>
           <td>{{programme.date}}</td>
           <td>
-            <input type="checkbox" [value]="programme.statut" [checked]="programme.statut" [disabled]="programme.statut" (click)="validprogram(programme.id,programme.titre_id)">
+            <input class="checkbox" type="checkbox" [value]="programme.statut" [checked]="programme.statut" [disabled]="programme.statut" (click)="validprogram(programme.id,programme.titre_id)">
+            <input class="checkbox" type="checkbox" [value]="programme.statut" [checked]="programme.statut" [disabled]="programme.statut" (click)="openMoitierValid_Popup(programme.id)">
           </td>
         </tr>
       </tbody>
     </table>
   </div>
-  <!-- END USERS'S LISTS -->
+  <!-- END PROGRAMME'S LISTS -->
+
+  <!-- START RAPPORT POPUP -->  
+  <div class="limiter" [ngStyle]="{'display':MoitierValid_displayStyle}">
+    <div class="container-login100">
+      <!-- form start -->
+      <div *ngFor="let Activite of ActToupdate" [ngClass]="{'classB' : color}" class="wrap-login1001">
+        <form [formGroup]="form1" (ngSubmit)="submiterapport(Activite.user_id, Activite.id)" novalidate>
+          <span class="acceuil">Editer un rapport</span>
+          <div class="row justify-content-center">
+            <p >Activité : {{Activite.libelleactivite}}</p>
+
+            <textarea style="border: 1px solid;" formControlName="rapprot_content" placeholder="Saisir..."></textarea>
+
+            <div class="container-login100-form-btn">
+              <button [disabled]="form.invalid" type="submit" class="login100-form-btn">Valider</button>
+            </div>
+            <mat-spinner *ngIf="spinner"></mat-spinner>
+          </div>       
+        </form>
+      </div>
+      <!-- form end -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger"(click)="closeMoitierValid_Popup()">Fermer</button>
+      </div>
+    </div>
+  </div>   
+  <!-- END RAPPORT POPUP -->
 
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar elevation-4" style="background-color: black;">

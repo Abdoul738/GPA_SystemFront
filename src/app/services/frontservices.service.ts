@@ -69,6 +69,10 @@ export class FrontservicesService{
     return this.httpClient.get('http://127.0.0.1:8000/api/getuserbyid/'+id);
   }
 
+  getprogramactbyid(id:any){
+    return this.httpClient.get('http://127.0.0.1:8000/api/getprogramactbyid/'+id);
+  }
+
   deleteuser(id:any){
     return this.httpClient.get('http://127.0.0.1:8000/api/deluser/'+id);
   }
