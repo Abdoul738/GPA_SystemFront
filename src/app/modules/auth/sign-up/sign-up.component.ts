@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseAlertType } from '@fuse/components/alert';
 import { AuthService } from 'app/core/auth/auth.service';
+import { MatInputModule } from '@angular/material/input';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
+import { VariableServiceService } from 'app/variable-service.service';
 
 @Component({
     selector     : 'auth-sign-up',
@@ -21,14 +24,17 @@ export class AuthSignUpComponent implements OnInit
     };
     signUpForm: FormGroup;
     showAlert: boolean = false;
+    users:any;
 
     /**
      * Constructor
      */
     constructor(
+        private param: VariableServiceService,
         private _authService: AuthService,
         private _formBuilder: FormBuilder,
-        private _router: Router
+        private _router: Router,
+        private http: HttpClient
     )
     {
     }
@@ -44,11 +50,13 @@ export class AuthSignUpComponent implements OnInit
     {
         // Create the form
         this.signUpForm = this._formBuilder.group({
-                name      : ['', Validators.required],
+                nom      : ['', Validators.required],
+                prenom      : ['', Validators.required],
                 email     : ['', [Validators.required, Validators.email]],
-                password  : ['', Validators.required],
-                company   : [''],
-                agreements: ['', Validators.requiredTrue]
+                password  : [''],
+                role_id   : [''],
+                statut   : [1],
+                numero: ['', Validators.required]
             }
         );
     }
@@ -75,30 +83,35 @@ export class AuthSignUpComponent implements OnInit
         this.showAlert = false;
 
         // Sign up
-        this._authService.signUp(this.signUpForm.value)
-            .subscribe(
-                (response) => {
+        const httpOptions={
+            headers: new HttpHeaders({
+              'Accept': 'application/json'
+            })
+        };
+      
+        this.http.post(this.param.url+'/registerUser',this.signUpForm.value).subscribe(data=>{
+            this.users = data;
 
-                    // Navigate to the confirmation required page
-                    this._router.navigateByUrl('/confirmation-required');
-                },
-                (response) => {
-
-                    // Re-enable the form
-                    this.signUpForm.enable();
-
-                    // Reset the form
-                    this.signUpNgForm.resetForm();
-
-                    // Set the alert
-                    this.alert = {
-                        type   : 'error',
-                        message: 'Something went wrong, please try again.'
-                    };
-
-                    // Show the alert
-                    this.showAlert = true;
-                }
-            );
+            if(this.users>=1){
+                this.signUpForm.enable();
+                // Reset the form
+                this.signUpNgForm.resetForm();
+                // Set the alert
+                this.alert = {
+                    type   : 'error',
+                    message: 'Cet utilisateur existe déjà.'
+                };
+                // Show the alert
+                this.showAlert = true;
+            }           
+            else{
+                this.showAlert = false;
+                this.signUpForm.enable();
+                // Reset the form
+                this.signUpNgForm.resetForm();
+                // this._router.navigateByUrl('dashboards/dashboard');
+            }
+            // window.location.reload();
+        })
     }
 }

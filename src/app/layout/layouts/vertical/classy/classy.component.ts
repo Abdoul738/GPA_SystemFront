@@ -18,6 +18,13 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy
     isScreenSmall: boolean;
     navigation: Navigation;
     user: User;
+    usr:any = {
+        id:0,
+        nom:'',
+        prenom:'',
+        email:'',
+        role_id:0
+    };
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
     /**
@@ -32,6 +39,11 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy
         private _fuseNavigationService: FuseNavigationService
     )
     {
+        this.usr.id = localStorage.getItem('usr_id');
+        this.usr.nom = localStorage.getItem('usr_nom');
+        this.usr.prenom = localStorage.getItem('usr_prenom');
+        this.usr.email = localStorage.getItem('usr_email');
+        this.usr.role_id = localStorage.getItem('usr_role');
     }
 
     // -----------------------------------------------------------------------------------------------------

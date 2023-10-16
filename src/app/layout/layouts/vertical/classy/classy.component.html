@@ -3,7 +3,7 @@
 
 <!-- Navigation -->
 <fuse-vertical-navigation
-    class="dark bg-gray-900 print:hidden"
+    class="" style="background-color: black; color:white"
     [mode]="isScreenSmall ? 'over' : 'side'"
     [name]="'mainNavigation'"
     [navigation]="navigation.default"
@@ -11,12 +11,6 @@
     <!-- Navigation header hook -->
     <ng-container fuseVerticalNavigationContentHeader>
         <div class="flex items-center w-full p-4 pl-6">
-            <!-- Logo -->
-            <div class="flex items-center justify-center">
-                <img
-                    class="w-8"
-                    src="assets/images/logo/logo.svg">
-            </div>
             <!-- Components -->
             <div class="flex items-center ml-auto">
                 <notifications></notifications>
@@ -27,31 +21,24 @@
         <div class="flex flex-col items-center w-full p-4">
             <div class="relative w-24 h-24">
                 <img
-                    class="w-full h-full rounded-full"
+                    class="w-full h-full rounded-full" style="background-color: white;"
                     *ngIf="user.avatar"
-                    [src]="user.avatar"
+                    src="assets/images/avatars/avatar.jpg"
                     alt="User avatar">
                 <mat-icon
                     class="icon-size-24"
                     *ngIf="!user.avatar"
-                    [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+                    [svgIcon]="'heroicons_solid:user-circle'">
+                </mat-icon>
             </div>
             <div class="flex flex-col items-center justify-center w-full mt-6">
                 <div class="w-full whitespace-nowrap text-ellipsis overflow-hidden text-center leading-normal font-medium">
-                    {{user.name}}
+                    {{usr.nom}} {{usr.prenom}}
                 </div>
                 <div class="w-full mt-0.5 whitespace-nowrap text-ellipsis overflow-hidden text-center text-md leading-normal font-medium text-secondary">
-                    {{user.email}}
+                    {{usr.email}}
                 </div>
             </div>
-        </div>
-    </ng-container>
-    <!-- Navigation footer hook -->
-    <ng-container fuseVerticalNavigationContentFooter>
-        <div class="flex flex-0 items-center justify-center h-16 pr-6 pl-2 mt-2 mb-4 opacity-12">
-            <img
-                class="max-w-36"
-                src="assets/images/logo/logo-text-on-dark.svg">
         </div>
     </ng-container>
 </fuse-vertical-navigation>

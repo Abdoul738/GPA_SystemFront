@@ -31,6 +31,10 @@ const themes = {
             ...colors.red,
             DEFAULT: colors.red[600]
         },
+        yellow     : {
+            ...colors.yellow,
+            DEFAULT: colors.yellow[600]
+        },
         'on-warn': {
             500: colors.red['50']
         }

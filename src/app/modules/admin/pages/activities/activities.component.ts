@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
-import { Activity } from 'app/modules/admin/pages/activities/activities.types';
-import { ActivitiesService } from 'app/modules/admin/pages/activities/activities.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { VariableServiceService } from 'app/variable-service.service';
+
 
 @Component({
     selector       : 'activity',
@@ -12,12 +13,17 @@ import { ActivitiesService } from 'app/modules/admin/pages/activities/activities
 })
 export class ActivitiesComponent implements OnInit
 {
-    activities$: Observable<Activity[]>;
+    // activities$: Observable<Activity[]>;
+    activities: any;
 
     /**
      * Constructor
      */
-    constructor(public _activityService: ActivitiesService)
+    constructor(
+        // public _activityService: ActivitiesService,
+        private param: VariableServiceService,
+        private http: HttpClient,
+        )
     {
     }
 
@@ -31,7 +37,9 @@ export class ActivitiesComponent implements OnInit
     ngOnInit(): void
     {
         // Get the activities
-        this.activities$ = this._activityService.activities;
+        this.http.get(this.param.url+'/getrapport').subscribe(data => {
+            this.activities = data;
+        });
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -62,13 +70,13 @@ export class ActivitiesComponent implements OnInit
         // Is today?
         if ( moment(date, moment.ISO_8601).isSame(today, 'day') )
         {
-            return 'Today';
+            return 'Aujourd\'huit';
         }
 
         // Is yesterday?
         if ( moment(date, moment.ISO_8601).isSame(yesterday, 'day') )
         {
-            return 'Yesterday';
+            return 'Hier';
         }
 
         return moment(date, moment.ISO_8601).fromNow();

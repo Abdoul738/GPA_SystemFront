@@ -9,12 +9,17 @@ import { fileManagerRoutes } from 'app/modules/admin/apps/file-manager/file-mana
 import { FileManagerComponent } from 'app/modules/admin/apps/file-manager/file-manager.component';
 import { FileManagerDetailsComponent } from 'app/modules/admin/apps/file-manager/details/details.component';
 import { FileManagerListComponent } from 'app/modules/admin/apps/file-manager/list/list.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { DocformComponent } from './docform/docform.component';
 
 @NgModule({
     declarations: [
         FileManagerComponent,
         FileManagerDetailsComponent,
-        FileManagerListComponent
+        FileManagerListComponent,
+        DocformComponent
     ],
     imports     : [
         RouterModule.forChild(fileManagerRoutes),
@@ -22,7 +27,10 @@ import { FileManagerListComponent } from 'app/modules/admin/apps/file-manager/li
         MatIconModule,
         MatSidenavModule,
         MatTooltipModule,
-        SharedModule
+        SharedModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule
     ]
 })
 export class FileManagerModule

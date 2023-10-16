@@ -5,6 +5,8 @@ import { MatButton } from '@angular/material/button';
 import { Subject, takeUntil } from 'rxjs';
 import { Message } from 'app/layout/common/messages/messages.types';
 import { MessagesService } from 'app/layout/common/messages/messages.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { VariableServiceService } from 'app/variable-service.service';
 
 @Component({
     selector       : 'messages',
@@ -18,21 +20,30 @@ export class MessagesComponent implements OnInit, OnDestroy
     @ViewChild('messagesOrigin') private _messagesOrigin: MatButton;
     @ViewChild('messagesPanel') private _messagesPanel: TemplateRef<any>;
 
-    messages: Message[];
+    // messages: Message[];
+    messages:any;
     unreadCount: number = 0;
     private _overlayRef: OverlayRef;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
+    usr_role_id:any = localStorage.getItem('usr_role');
+    displayButton:any;
 
     /**
      * Constructor
      */
     constructor(
+        private param: VariableServiceService,
         private _changeDetectorRef: ChangeDetectorRef,
         private _messagesService: MessagesService,
         private _overlay: Overlay,
-        private _viewContainerRef: ViewContainerRef
+        private _viewContainerRef: ViewContainerRef,
+        private http: HttpClient,
     )
     {
+        this.displayButton = true;
+        if(this.usr_role_id != 1){
+            this.displayButton = false;
+        }
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -44,20 +55,16 @@ export class MessagesComponent implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {
-        // Subscribe to message changes
-        this._messagesService.messages$
-            .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe((messages: Message[]) => {
+        // Get the data
+        this.http.get(this.param.url+'/getbesoins').subscribe(data=>{
+            this.messages = data;
 
-                // Load the messages
-                this.messages = messages;
+            // Calculate the unread count
+            this._calculateUnreadCount();
 
-                // Calculate the unread count
-                this._calculateUnreadCount();
-
-                // Mark for check
-                this._changeDetectorRef.markForCheck();
-            });
+            // Mark for check
+            this._changeDetectorRef.markForCheck();
+        })
     }
 
     /**
@@ -121,13 +128,18 @@ export class MessagesComponent implements OnInit, OnDestroy
     /**
      * Toggle read status of the given message
      */
-    toggleRead(message: Message): void
+    validerBesoin(id): void
     {
-        // Toggle the read status
-        message.read = !message.read;
+        this.http.get(this.param.url+'/validbesoins/'+id).subscribe(data => {
+            this.ngOnInit();
+        });
+    }
 
-        // Update the message
-        this._messagesService.update(message.id, message).subscribe();
+    rejeterBesoin(id): void
+    {
+        this.http.get(this.param.url+'/rejetbesoins/'+id).subscribe(data => {
+            this.ngOnInit();
+        });
     }
 
     /**
@@ -213,7 +225,7 @@ export class MessagesComponent implements OnInit, OnDestroy
 
         if ( this.messages && this.messages.length )
         {
-            count = this.messages.filter(message => !message.read).length;
+            count = this.messages.filter(messages => messages.validstatut == 0 && messages.rejetstatut == 0 ).length;
         }
 
         this.unreadCount = count;

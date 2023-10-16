@@ -20,6 +20,11 @@ export class UserComponent implements OnInit, OnDestroy
 
     @Input() showAvatar: boolean = true;
     user: User;
+    usr:any = {
+        nom:'',
+        prenom:'',
+        email:''
+    };
 
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
@@ -52,6 +57,8 @@ export class UserComponent implements OnInit, OnDestroy
                 // Mark for check
                 this._changeDetectorRef.markForCheck();
             });
+
+        this.usr.email = localStorage.getItem('usr_email')
     }
 
     /**
@@ -88,11 +95,25 @@ export class UserComponent implements OnInit, OnDestroy
         }).subscribe();
     }
 
+    profile(): void
+    {
+        this._router.navigateByUrl('dashboards/profile');
+    }
+
     /**
      * Sign out
      */
     signOut(): void
     {
-        this._router.navigate(['/sign-out']);
+        localStorage.removeItem('usr_id');
+        localStorage.removeItem('usr_nom');
+        localStorage.removeItem('usr_prenom');
+        localStorage.removeItem('usr_email');
+        localStorage.removeItem('usr_role');
+        localStorage.removeItem('usr_libellerole');
+        localStorage.removeItem('usr_numero');
+        localStorage.removeItem('usr_role_id');
+
+        this._router.navigateByUrl('auth/sign-out');
     }
 }

@@ -5,6 +5,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 import { FileManagerService } from 'app/modules/admin/apps/file-manager/file-manager.service';
 import { Item, Items } from 'app/modules/admin/apps/file-manager/file-manager.types';
+import { FormBuilder, FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
 
 @Component({
     selector       : 'file-manager-list',
@@ -19,6 +20,7 @@ export class FileManagerListComponent implements OnInit, OnDestroy
     selectedItem: Item;
     items: Items;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
+    AddfileForm: FormGroup;
 
     /**
      * Constructor
@@ -28,7 +30,8 @@ export class FileManagerListComponent implements OnInit, OnDestroy
         private _changeDetectorRef: ChangeDetectorRef,
         private _router: Router,
         private _fileManagerService: FileManagerService,
-        private _fuseMediaWatcherService: FuseMediaWatcherService
+        private _fuseMediaWatcherService: FuseMediaWatcherService,
+        private _formBuilder: FormBuilder,
     )
     {
     }
@@ -67,12 +70,23 @@ export class FileManagerListComponent implements OnInit, OnDestroy
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe((state) => {
 
-                // Calculate the drawer mode
-                this.drawerMode = state.matches ? 'side' : 'over';
+            // Calculate the drawer mode
+            this.drawerMode = state.matches ? 'side' : 'over';
 
-                // Mark for check
-                this._changeDetectorRef.markForCheck();
-            });
+            // Mark for check
+            this._changeDetectorRef.markForCheck();
+        });
+
+        // Create user form
+        this.AddfileForm = this._formBuilder.group({
+            name      : ['', Validators.required],
+            folderId      : ['', Validators.required],
+            createdBy     : ['', Validators.required],
+            contents  : [''],
+            description   : [''],
+            size   : [''],
+            type: ['']
+        })
     }
 
     /**
@@ -92,13 +106,14 @@ export class FileManagerListComponent implements OnInit, OnDestroy
     /**
      * On backdrop clicked
      */
-    onBackdropClicked(): void
+    onBackdropClicked()
     {
         // Go back to the list
         this._router.navigate(['./'], {relativeTo: this._activatedRoute});
 
         // Mark for check
         this._changeDetectorRef.markForCheck();
+        return this.matDrawer.close();
     }
 
     /**

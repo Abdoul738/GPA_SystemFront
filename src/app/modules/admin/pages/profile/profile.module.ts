@@ -12,6 +12,17 @@ import { SharedModule } from 'app/shared/shared.module';
 import { ProfileComponent } from 'app/modules/admin/pages/profile/profile.component';
 import { profileRoutes } from 'app/modules/admin/pages/profile/profile.routing';
 
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatRippleModule } from '@angular/material/core';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
+import { MatTabsModule } from '@angular/material/tabs';
+import { TranslocoModule } from '@ngneat/transloco';
+import { NgApexchartsModule } from 'ng-apexcharts';
+import { MatSelectModule } from '@angular/material/select';
+
 @NgModule({
     declarations: [
         ProfileComponent
@@ -26,7 +37,18 @@ import { profileRoutes } from 'app/modules/admin/pages/profile/profile.routing';
         MatMenuModule,
         MatTooltipModule,
         FuseCardModule,
-        SharedModule
+        SharedModule,
+
+        MatButtonToggleModule,
+        MatProgressBarModule,
+        MatRippleModule,
+        MatSidenavModule,
+        MatSortModule,
+        MatTableModule,
+        MatTabsModule,
+        NgApexchartsModule,
+        TranslocoModule,
+        MatSelectModule
     ]
 })
 export class ProfileModule
