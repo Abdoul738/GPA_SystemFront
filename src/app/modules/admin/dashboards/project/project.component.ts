@@ -40,6 +40,8 @@ export class ProjectComponent implements OnInit, OnDestroy {
     selectedProject: string = 'ACME Corp. Backend App';
     private _unsubscribeAll: Subject<any> = new Subject<any>();
     addProgramForm: FormGroup;
+    updateProgramForm: FormGroup;
+    updateProfileForm: FormGroup;
     alldaysweek: any;
     actualweekdata: any;
     lastweekdata: any;
@@ -50,6 +52,8 @@ export class ProjectComponent implements OnInit, OnDestroy {
     allprogramme: any;
     TitreProgramme: any;
     actualprogram: any;
+    programdetail: any;
+    userdetail: any;
     actualprogramprogress: any;
     programTableColumns: string[] = ['nom_prenom', 'tache', 'date', 'statut'];
     titre_id: any;
@@ -66,8 +70,16 @@ export class ProjectComponent implements OnInit, OnDestroy {
         besoinExCount: 0,
         tacheNvlCount: 0
     };
+    detail_id: any = {
+        user: 0,
+        programme: 0,
+        rapport: 0,
+        besoin: 0
+    };
     besoinExCount: any;
     displayAddProgramme: any;
+    displayDetailActivite: any;
+    displayDetailUser: any;
     displayAddUser: any;
     displayProgramme: any;
     displayUsers: any;
@@ -93,6 +105,8 @@ export class ProjectComponent implements OnInit, OnDestroy {
 
     ) {
         this.displayAddProgramme = false;
+        this.displayDetailActivite = false;
+        this.displayDetailUser = false;
         this.displayCurrentProgramme = false;
         this.displayAddUser = false;
         this.displayProgramme = true;
@@ -356,6 +370,123 @@ export class ProjectComponent implements OnInit, OnDestroy {
         this._changeDetectorRef.markForCheck();
     };
 
+    detailactivite($id) {
+        this.http.get(this.param.url+'/getprogramactbyid/' + $id).subscribe(data => {
+            this.programdetail = data;
+            this.detail_id.programme = $id;
+            // Update program form
+            this.updateProgramForm = this._formBuilder.group({
+                userid: [this.programdetail.user_id],
+                activite_id: [this.programdetail.libelleactivite],
+                date: [this.programdetail.date],
+                id: [this.programdetail.id],
+            });
+            if(this.programdetail =! null && this.programdetail.statut == 0 && this.programdetail.halfstatut == 0 && this.programdetail.activite_sup == 0){
+                this.displayDetailActivite = true;
+                this.displayCurrentProgramme = false;
+            }
+        }, err => { console.log(err) });
+
+        // Mark for check
+        this._changeDetectorRef.markForCheck();
+    }
+
+    detailuser($id) {
+        this.http.get(this.param.url+'/getuserbyid/' + $id).subscribe(data => {
+            this.userdetail = data;
+            this.detail_id.user = $id;
+            // Update user form
+            this.updateProfileForm = this._formBuilder.group({
+                id: [this.userdetail.id],
+                nom: [this.userdetail.nom],
+                prenom: [this.userdetail.prenom],
+                email: [this.userdetail.email],
+                numero: [this.userdetail.numero],
+                role_id: [this.userdetail.role_id],
+            });
+            if(this.userdetail =! null){
+                this.displayDetailUser = true;
+                this.displayUsers = false;
+            }
+        }, err => { console.log(err) });
+
+        // Mark for check
+        this._changeDetectorRef.markForCheck();
+    }
+
+    updateProgramme() {
+
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Accept': 'application/json'
+            })
+        };
+
+        this.http.post(this.param.url+'/updateprogramme', this.updateProgramForm.value, httpOptions).subscribe(data => {
+            if (data != null) {
+                this.closedetail();
+                this.closePopup()
+                this.ngOnInit();
+                this.programdetail = data as any[];
+                this.getProgram(this.programdetail.titre_id);
+            }
+        })
+
+        this._changeDetectorRef.markForCheck();
+    }
+
+    updateUser() {
+
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Accept': 'application/json'
+            })
+        };
+        
+        this.http.post(this.param.url+'/updateprofile', this.updateProfileForm.value, httpOptions).subscribe(data => {
+            if (data != null) {
+                this.displayDetailUser = false;
+                this.ngOnInit();
+                this.userdetail = data as any[];
+                this.detailuser(this.userdetail.id);
+            }
+        })
+
+        this._changeDetectorRef.markForCheck();
+    }
+
+    deleteProgramme($id) {
+        this.http.get(this.param.url+'/delprogramme/' + $id).subscribe(data => {
+            if (data != null) {
+                this.closedetail();
+                this.closePopup()
+                this.ngOnInit();
+                this.programdetail = data;
+                // console.log(this.programdetail.titre_id);
+                this.getProgram(this.programdetail.titre_id);
+            }
+        })
+
+        this._changeDetectorRef.markForCheck();
+    }
+
+    deleteUser($id) {
+        this.http.get(this.param.url+'/deluser/' + $id).subscribe(data => {
+            if (data != null) {
+                this.displayDetailUser = false;
+                this.closePopup()
+                this.ngOnInit();
+            }
+        })
+
+        this._changeDetectorRef.markForCheck();
+    }
+
+    closedetail(){
+        this.displayDetailActivite = false;
+        this.displayCurrentProgramme = true;
+    }
+
     redirectTo() {
         this._router.navigateByUrl('dashboards/rapports');
     };
@@ -422,6 +553,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
     }
     closePopup() {
         this.displayAddProgramme = false;
+        this.displayDetailUser = false;
         this.displayCurrentProgramme = false;
         this.displayAddUser = false;
         this.displayProgramme = true;
@@ -481,6 +613,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
         this._changeDetectorRef.markForCheck();
         this.closePopup();
     }
+
     /**
      * Returns whether the given dates are different days
      *
